@@ -1,0 +1,39 @@
+﻿@using Announcements.Models
+@model IEnumerable<AppUser>
+
+@{
+    ViewBag.Title = "Пользователи";
+}
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        Пользователи
+    </div>
+    <table class="table table-striped">
+        <tr>
+            <th>Id</th>
+            <th>Имя</th>
+            <th>Email</th>
+            <th>Номер телефона</th>
+        </tr>
+        @if (Model.Count() == 0)
+        {
+            <tr>
+                <td colspan="3" class="text-center">Нет учетных записей</td>
+            </tr>
+        }
+        else
+        {
+            foreach (AppUser user in Model)
+            {
+                <tr>
+                    <td>@user.Id</td>
+                    <td>@user.UserName</td>
+                    <td>@user.Email</td>
+                    <td>@user.PhoneNumber</td>
+                </tr>
+            }
+        }
+    </table>
+</div>
+@Html.ActionLink("Создать", "Create", "UserAdmin", null, new { @class = "btn btn-primary" })

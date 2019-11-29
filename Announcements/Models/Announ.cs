@@ -16,6 +16,7 @@ namespace Announcements.Models
         public string Salary { get; set; }
 
         public int? UserId { get; set; }
+
         public AppUser User { get; set; }
     }
 }
