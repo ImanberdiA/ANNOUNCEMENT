@@ -7,5 +7,6 @@ namespace Announcements.App_Start
 {
     public class IdentityConfig
     {
+
     }
 }
