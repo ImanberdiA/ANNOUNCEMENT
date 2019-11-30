@@ -4,6 +4,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -46,6 +47,34 @@ namespace Announcements.Controllers
 
             return View(model);
         }
+        #endregion
+
+        #region Удаление пользователя
+        public async Task<ActionResult> Delete([Required]string id)
+        {
+            AppUser user = await Manager.FindByIdAsync(id);
+
+            if (user != null)
+            {
+                IdentityResult result = await Manager.DeleteAsync(user);
+
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return View("Error", result.Errors);
+                }
+            }
+            else
+            {
+                return View("Error", new string[] { "Пользователь не найден" });
+            }
+        }
+        #endregion
+
+        #region Редактирование пользователя
         #endregion
 
         private void AddErrorsToState(IdentityResult result)

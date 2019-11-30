@@ -31,6 +31,13 @@
                     <td>@user.UserName</td>
                     <td>@user.Email</td>
                     <td>@user.PhoneNumber</td>
+                    <td>
+                        @using (Html.BeginForm("Delete", "UserAdmin", FormMethod.Get, new { id = user.Id }))
+                        {
+                            @Html.ActionLink("Изменить", "Edit", "UserAdmin", new { id = user.Id}, new { @class = "btn btn-primary btn-xs" })
+                            <button class="btn btn-danger btn-xs" type="submit">Удалить</button>
+                        }
+                    </td>
                 </tr>
             }
         }
