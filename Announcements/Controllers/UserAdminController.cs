@@ -75,6 +75,72 @@ namespace Announcements.Controllers
         #endregion
 
         #region Редактирование пользователя
+        public async Task<ActionResult> Edit([Required]string id)
+        {
+            if (ModelState.IsValid)
+            {
+                AppUser user = await Manager.FindByIdAsync(id);
+
+                if (user != null)
+                {
+                    return View(user);
+                }
+                else
+                {
+                    return View("Error", new string[] { "Пользователь не найден" });
+                }
+            }
+
+            return View("Error", new string[] { "Пользователь не найден" });
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Edit(string id, string email, string password)
+        {
+            AppUser user = await Manager.FindByIdAsync(id);
+
+            if (user != null)
+            {
+                user.Email = email;
+                IdentityResult validUser = await Manager.UserValidator.ValidateAsync(user);
+                if (!validUser.Succeeded)
+                {
+                    AddErrorsToState(validUser);
+                }
+
+                IdentityResult validPass = null;
+                if (password != string.Empty)
+                {
+                    validPass = await Manager.PasswordValidator.ValidateAsync(password);
+
+                    if (validPass.Succeeded)
+                    {
+                        user.PasswordHash = Manager.PasswordHasher.HashPassword(password);
+                    }
+                    else
+                    {
+                        AddErrorsToState(validPass);
+                    }
+                }
+
+                if ((validUser.Succeeded && validPass == null) || (validUser.Succeeded && password != string.Empty && validPass.Succeeded))
+                {
+                    IdentityResult result = await Manager.UpdateAsync(user);
+                    if (result.Succeeded)
+                    {
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        AddErrorsToState(result);
+                    }
+                }
+
+                return View(user);
+            }
+
+            return View("Error", new string[] { "Пользователь не найден" });
+        }
         #endregion
 
         private void AddErrorsToState(IdentityResult result)
