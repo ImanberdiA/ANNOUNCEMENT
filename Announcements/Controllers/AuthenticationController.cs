@@ -1,9 +1,13 @@
 ﻿using Announcements.Models;
 using Announcements.Settings;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -33,15 +37,78 @@ namespace Announcements.Controllers
                 }
                 else
                 {
-                    //ClaimsIdentity identity = await Manager.
+                    ClaimsIdentity ident = await Manager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
+
+                    AuthManager.SignOut();
+                    AuthManager.SignIn(new AuthenticationProperties
+                    {
+                        IsPersistent = true
+                    }, ident);
+
+                    if (returnUrl != string.Empty)
+                    {
+                        return Redirect(returnUrl);
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Home", null);
+                    }
                 }
             }
             else
             {
                 return View("Error", new string[] { "Произошла ошибка" });
             }
+
+            return View(model);
         }
         #endregion
+
+        #region Выход из системы
+        public ActionResult Logout()
+        {
+            AuthManager.SignOut();
+            return View();
+        }
+
+        #endregion
+
+        #region Регистрация пользователя
+        public ActionResult Register()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Register(CreatingUserModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                AppUser user = new AppUser { UserName = model.Name, Email = model.Email, PhoneNumber = model.PhoneNumber };
+
+                IdentityResult result = await Manager.CreateAsync(user, model.Password);
+
+                if (result.Succeeded)
+                {
+                    await Login(new AuthUserModel { Name = model.Name, Password = model.Password }, "/Home/Index");
+                }
+                else
+                {
+                    AddErrorsToState(result);
+                }
+            }
+
+            return View(model);
+        }
+        #endregion
+
+        private void AddErrorsToState(IdentityResult result)
+        {
+            foreach (string error in result.Errors)
+            {
+                ModelState.AddModelError("", error);
+            }
+        }
 
         public AppUserManager Manager
         {
@@ -51,7 +118,13 @@ namespace Announcements.Controllers
             }
         }
 
-
+        public IAuthenticationManager AuthManager
+        {
+            get
+            {
+                return HttpContext.GetOwinContext().Authentication;
+            }
+        }
 
     }
 }
