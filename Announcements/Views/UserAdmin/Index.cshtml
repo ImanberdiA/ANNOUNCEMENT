@@ -1,5 +1,5 @@
 ﻿@using Announcements.Models
-@model IEnumerable<AppUser>
+@model IEnumerable<User>
 
 @{
     ViewBag.Title = "Пользователи";
@@ -24,7 +24,7 @@
         }
         else
         {
-            foreach (AppUser user in Model)
+            foreach (User user in Model)
             {
                 <tr>
                     <td>@user.Id</td>

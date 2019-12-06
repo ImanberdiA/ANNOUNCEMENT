@@ -162,6 +162,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Role.cs" />
+    <Compile Include="Models\RoleEditModel.cs" />
+    <Compile Include="Models\RoleEditPostModel.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\Announ.cs" />
     <Compile Include="Models\AuthUserModel.cs" />
@@ -209,6 +211,7 @@
     <Content Include="Views\Authentication\Login.cshtml" />
     <Content Include="Views\RoleAdmin\Create.cshtml" />
     <Content Include="Views\RoleAdmin\Index.cshtml" />
+    <Content Include="Views\RoleAdmin\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
