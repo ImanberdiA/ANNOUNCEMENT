@@ -68,7 +68,7 @@ namespace Announcements.Controllers
         public ActionResult Logout()
         {
             AuthManager.SignOut();
-            return View();
+            return RedirectToAction("Login", "Authentication");
         }
 
         #endregion

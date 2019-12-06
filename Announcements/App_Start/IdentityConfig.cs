@@ -20,7 +20,7 @@ namespace Announcements
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
-                LoginPath = new PathString("/Acc/Login")
+                LoginPath = new PathString("/Authentication/Login")
             });
         }
     }
