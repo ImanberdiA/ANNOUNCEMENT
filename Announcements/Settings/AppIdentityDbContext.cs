@@ -8,7 +8,7 @@ using System.Web;
 
 namespace Announcements.Settings
 {
-    public class AppIdentityDbContext: IdentityDbContext<AppUser>
+    public class AppIdentityDbContext: IdentityDbContext<User>
     {
         public AppIdentityDbContext() : base("AnnConnection") { }
 

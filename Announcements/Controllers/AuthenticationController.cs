@@ -29,7 +29,7 @@ namespace Announcements.Controllers
         {
             if (ModelState.IsValid)
             {
-                AppUser user = await Manager.FindAsync(model.Name, model.Password);
+                User user = await Manager.FindAsync(model.Name, model.Password);
 
                 if (user == null)
                 {
@@ -84,7 +84,7 @@ namespace Announcements.Controllers
         {
             if (ModelState.IsValid)
             {
-                AppUser user = new AppUser { UserName = model.Name, Email = model.Email, PhoneNumber = model.PhoneNumber };
+                User user = new User { UserName = model.Name, Email = model.Email, PhoneNumber = model.PhoneNumber };
 
                 IdentityResult result = await Manager.CreateAsync(user, model.Password);
 

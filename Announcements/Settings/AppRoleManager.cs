@@ -10,14 +10,14 @@ using System.Web;
 
 namespace Announcements.Settings
 {
-    public class AppUserManager: UserManager<User>
+    public class AppRoleManager: RoleManager<Role>
     {
-        public AppUserManager(IUserStore<User> store) : base(store) { }
+        public AppRoleManager(RoleStore<Role> store) : base(store) { }
 
-        public static AppUserManager Create(IdentityFactoryOptions<AppUserManager> options, IOwinContext context)
+        public static AppRoleManager Create(IdentityFactoryOptions<AppRoleManager> options, IOwinContext context)
         {
             AppIdentityDbContext db = context.Get<AppIdentityDbContext>();
-            AppUserManager manager = new AppUserManager(new UserStore<User>(db));
+            AppRoleManager manager = new AppRoleManager(new RoleStore<Role>(db));
             return manager;
         }
     }

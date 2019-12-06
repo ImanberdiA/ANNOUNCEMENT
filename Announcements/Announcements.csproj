@@ -156,17 +156,21 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AuthenticationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\RoleAdminController.cs" />
     <Compile Include="Controllers\UserAdminController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\AppUser.cs" />
+    <Compile Include="Models\Role.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Models\Announ.cs" />
     <Compile Include="Models\AuthUserModel.cs" />
     <Compile Include="Models\CreatingUserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings\AppIdentityDbContext.cs" />
+    <Compile Include="Settings\AppRoleManager.cs" />
     <Compile Include="Settings\AppUserManager.cs" />
+    <Compile Include="Settings\IdentityHelpers.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -203,6 +207,8 @@
     <Content Include="Views\UserAdmin\Create.cshtml" />
     <Content Include="Views\UserAdmin\Edit.cshtml" />
     <Content Include="Views\Authentication\Login.cshtml" />
+    <Content Include="Views\RoleAdmin\Create.cshtml" />
+    <Content Include="Views\RoleAdmin\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

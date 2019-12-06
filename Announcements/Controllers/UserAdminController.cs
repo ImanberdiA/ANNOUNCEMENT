@@ -31,7 +31,7 @@ namespace Announcements.Controllers
         {
             if (ModelState.IsValid)
             {
-                AppUser user = new AppUser { UserName = model.Name, Email = model.Email, PhoneNumber = model.PhoneNumber };
+                User user = new User { UserName = model.Name, Email = model.Email, PhoneNumber = model.PhoneNumber };
 
                 IdentityResult result = await Manager.CreateAsync(user, model.Password);
 
@@ -52,7 +52,7 @@ namespace Announcements.Controllers
         #region Удаление пользователя
         public async Task<ActionResult> Delete([Required]string id)
         {
-            AppUser user = await Manager.FindByIdAsync(id);
+            User user = await Manager.FindByIdAsync(id);
 
             if (user != null)
             {
@@ -79,7 +79,7 @@ namespace Announcements.Controllers
         {
             if (ModelState.IsValid)
             {
-                AppUser user = await Manager.FindByIdAsync(id);
+                User user = await Manager.FindByIdAsync(id);
 
                 if (user != null)
                 {
@@ -97,7 +97,7 @@ namespace Announcements.Controllers
         [HttpPost]
         public async Task<ActionResult> Edit(string id, string email, string password)
         {
-            AppUser user = await Manager.FindByIdAsync(id);
+            User user = await Manager.FindByIdAsync(id);
 
             if (user != null)
             {

@@ -7,11 +7,11 @@ using System.Web;
 
 namespace Announcements.Models
 {
-    public class AppUser : IdentityUser
+    public class User : IdentityUser
     {
         public ICollection<Announ> Announs { get; set; }
 
-        public AppUser()
+        public User()
         {
             Announs = new List<Announ>();
         }

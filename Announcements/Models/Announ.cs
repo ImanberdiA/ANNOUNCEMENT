@@ -17,6 +17,6 @@ namespace Announcements.Models
 
         public int? UserId { get; set; }
 
-        public AppUser User { get; set; }
+        public User User { get; set; }
     }
 }
