@@ -74,7 +74,31 @@ namespace Announcements.Controllers
                 return View("Error", new string[] { "Произошла ошибка" });
             }
         }
-        
+
+        #endregion
+
+        #region Редактирование объявления
+        public async Task<ActionResult> Edit(string id)
+        {
+            Announ ann = await db.Announs.FindAsync(Int32.Parse(id));
+
+            if (ann != null)
+            {
+                return View(ann);
+            }
+            else
+            {
+                return View("Error", new string[] { "Объявление не найдено" });
+            }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Edit(Announ ann)
+        {
+            db.Entry(ann).State = EntityState.Modified;
+            await db.SaveChangesAsync();
+            return RedirectToAction("Index");
+        }
         #endregion
 
         private void AddErrorsToState(IdentityResult res)

@@ -215,6 +215,7 @@
     <Content Include="Views\RoleAdmin\Edit.cshtml" />
     <Content Include="Views\Ann\Create.cshtml" />
     <Content Include="Views\Ann\Index.cshtml" />
+    <Content Include="Views\Ann\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
