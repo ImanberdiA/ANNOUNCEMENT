@@ -9,7 +9,7 @@ namespace Announcements.Models
 {
     public class User : IdentityUser
     {
-        public ICollection<Announ> Announs { get; set; }
+        public virtual ICollection<Announ> Announs { get; set; }
 
         public User()
         {
