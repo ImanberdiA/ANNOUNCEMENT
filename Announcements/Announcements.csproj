@@ -213,11 +213,12 @@
     <Content Include="Views\RoleAdmin\Create.cshtml" />
     <Content Include="Views\RoleAdmin\Index.cshtml" />
     <Content Include="Views\RoleAdmin\Edit.cshtml" />
+    <Content Include="Views\Ann\Create.cshtml" />
+    <Content Include="Views\Ann\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Validators\" />
-    <Folder Include="Views\Ann\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

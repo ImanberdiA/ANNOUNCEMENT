@@ -1,0 +1,22 @@
+﻿@using Announcements.Models
+@model User
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+@Html.ValidationSummary(false)
+
+@foreach (Announ ann in Model.Announs)
+{
+    <h3>@ann.AnnTitle</h3>
+    <p>Автор: @ann.User.UserName</p>
+    <h5>@ann.Description</h5>
+    using (Html.BeginForm("Delete", "Ann", FormMethod.Get))
+    {
+        <input name="id" value="@ann.Id" type="hidden">
+        <button type="button" class="btn btn-danger">Удалить</button>
+        @Html.ActionLink("Изменить", "Edit", "Ann", new { id = ann.Id }, new { @class = "btn btn-info" })
+    }
+}
