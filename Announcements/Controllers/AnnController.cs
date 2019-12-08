@@ -13,16 +13,19 @@ using System.Web.Mvc;
 
 namespace Announcements.Controllers
 {
+    #region Класс управления объявлениями пользователя
+    [Authorize]
     public class AnnController : Controller
     {
         AppIdentityDbContext db = new AppIdentityDbContext();
 
-        // GET: Ann
-        public async Task<ActionResult> Index()
+        #region Получить все объявления пользователя
+        public async Task<ActionResult> GetUserAnns()
         {
             User user = await Manager.FindByNameAsync(HttpContext.User.Identity.Name);
             return View(user);
         }
+        #endregion
 
         #region Создание объявление
         public ActionResult Create()
@@ -39,7 +42,7 @@ namespace Announcements.Controllers
                 cur_user.Announs.Add(ann);
                 await Manager.UpdateAsync(cur_user);
 
-                return RedirectToAction("Index");
+                return RedirectToAction("GetUserAnns");
             }
             else
             {
@@ -62,7 +65,7 @@ namespace Announcements.Controllers
                     db.Announs.Remove(ann);
                     await db.SaveChangesAsync();
 
-                    return View("Index");
+                    return RedirectToAction("GetUserAnns");
                 }
                 else
                 {
@@ -97,7 +100,7 @@ namespace Announcements.Controllers
         {
             db.Entry(ann).State = EntityState.Modified;
             await db.SaveChangesAsync();
-            return RedirectToAction("Index");
+            return RedirectToAction("GetUserAnns");
         }
         #endregion
 
@@ -117,4 +120,6 @@ namespace Announcements.Controllers
             }
         }
     }
+
+    #endregion
 }

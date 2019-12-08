@@ -14,6 +14,8 @@ using System.Web.Mvc;
 
 namespace Announcements.Controllers
 {
+    #region Класс управления аутентификацией/авторизацией пользователя
+
     public class AuthenticationController : Controller
     {
         #region Вход в систему
@@ -65,6 +67,7 @@ namespace Announcements.Controllers
         #endregion
 
         #region Выход из системы
+        [Authorize]
         public ActionResult Logout()
         {
             AuthManager.SignOut();
@@ -102,6 +105,32 @@ namespace Announcements.Controllers
         }
         #endregion
 
+        #region Личный кабинет пользователя
+        [Authorize]
+        public async Task<ActionResult> AccountRoom()
+        {
+            User user = await Manager.FindByNameAsync(HttpContext.User.Identity.Name);
+
+            if (user != null)
+            {
+                string roleNames = null;
+                foreach (var role in user.Roles)
+                {
+                    roleNames += string.Join("; ", RoleManager.Roles.Where(r => r.Id == role.RoleId).Select(r => r.Name));
+                    roleNames += "; ";
+                }
+
+                ViewBag.RoleNames = roleNames;
+                //ViewData["IsAuth"] = HttpContext.User.Identity.IsAuthenticated;
+                return View(user);
+            }
+            else
+            {
+                return View("Error", new string[] { "Пользователь не существует" });
+            }
+        }
+        #endregion
+
         private void AddErrorsToState(IdentityResult result)
         {
             foreach (string error in result.Errors)
@@ -110,7 +139,15 @@ namespace Announcements.Controllers
             }
         }
 
-        public AppUserManager Manager
+        private AppRoleManager RoleManager
+        {
+            get
+            {
+                return HttpContext.GetOwinContext().GetUserManager<AppRoleManager>();
+            }
+        }
+
+        private AppUserManager Manager
         {
             get
             {
@@ -125,6 +162,7 @@ namespace Announcements.Controllers
                 return HttpContext.GetOwinContext().Authentication;
             }
         }
-
     }
+
+    #endregion
 }

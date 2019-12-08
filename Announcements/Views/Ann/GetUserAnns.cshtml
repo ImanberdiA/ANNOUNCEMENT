@@ -4,10 +4,15 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Объявления пользователя @Model.UserName</h2>
 
 @Html.ValidationSummary(false)
 
+
+@if (Model.Announs.Count() == 0)
+{
+    <h4>Нет постов</h4>
+}
 @foreach (Announ ann in Model.Announs)
 {
     <h3>@ann.AnnTitle</h3>
@@ -16,7 +21,8 @@
     using (Html.BeginForm("Delete", "Ann", FormMethod.Get))
     {
         <input name="id" value="@ann.Id" type="hidden">
-        <button type="button" class="btn btn-danger">Удалить</button>
+        <input type="submit" value="Удалить" class="btn btn-default">
+
         @Html.ActionLink("Изменить", "Edit", "Ann", new { id = ann.Id }, new { @class = "btn btn-info" })
     }
 }

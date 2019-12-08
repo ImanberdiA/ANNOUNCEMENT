@@ -12,9 +12,10 @@ using System.Web.Mvc;
 
 namespace Announcements.Controllers
 {
+    #region Управление пользователями
+    [Authorize]
     public class UserAdminController : Controller
     {
-        // GET: UserAdmin
         public ActionResult Index()
         {
             return View(Manager.Users);
@@ -158,7 +159,6 @@ namespace Announcements.Controllers
                 return HttpContext.GetOwinContext().GetUserManager<AppUserManager>();
             }
         }
-
-
     }
+    #endregion
 }

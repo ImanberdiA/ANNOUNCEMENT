@@ -13,9 +13,10 @@ using System.Web.Mvc;
 
 namespace Announcements.Controllers
 {
+    #region Класс управления ролями
+    [Authorize]
     public class RoleAdminController : Controller
     {
-        // GET: RoleAdmin
         public ActionResult Index()
         {
             return View(RoleManager.Roles);
@@ -88,9 +89,9 @@ namespace Announcements.Controllers
 
             string[] memberIds = role.Users.Select(x => x.UserId).ToArray();
 
-            IEnumerable<User> members = await UserManager.Users.Where(u => memberIds.Any(y => y == u.Id)).ToListAsync();
+            IEnumerable<User> members = UserManager.Users.Where(u => memberIds.Any(y => y == u.Id));
 
-            IEnumerable<User> nonMembers = await UserManager.Users.Except(members).ToListAsync();
+            IEnumerable<User> nonMembers = UserManager.Users.Except(members);
 
             return View(new RoleEditModel
             {
@@ -156,4 +157,6 @@ namespace Announcements.Controllers
             }
         }
     }
+
+    #endregion
 }

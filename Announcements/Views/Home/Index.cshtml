@@ -1,3 +1,10 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
+
+<h4>Панель администратора</h4>
+
+<div class="container">
+    @Html.ActionLink("Пользователи", "Index", "UserAdmin", new { @class = "btn btn-info btn-lg btn-block" })
+    @Html.ActionLink("Роли", "Index", "RoleAdmin", new { @class = "btn btn-info btn-lg btn-block" })
+</div>

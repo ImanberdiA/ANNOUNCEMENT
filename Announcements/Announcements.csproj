@@ -214,8 +214,9 @@
     <Content Include="Views\RoleAdmin\Index.cshtml" />
     <Content Include="Views\RoleAdmin\Edit.cshtml" />
     <Content Include="Views\Ann\Create.cshtml" />
-    <Content Include="Views\Ann\Index.cshtml" />
+    <Content Include="Views\Ann\GetUserAnns.cshtml" />
     <Content Include="Views\Ann\Edit.cshtml" />
+    <Content Include="Views\Authentication\AccountRoom.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

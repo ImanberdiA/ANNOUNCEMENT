@@ -12,7 +12,5 @@ namespace Announcements.Controllers
         {
             return View();
         }
-
-
     }
 }

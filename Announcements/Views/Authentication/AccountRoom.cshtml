@@ -1,0 +1,12 @@
+﻿@using Announcements.Models
+@model User
+
+@{
+    ViewBag.Title = "Личный кабинет";
+}
+
+<h2>@Model.UserName</h2>
+
+<b>Email: </b> @Model.Email <br />
+<b>Номер телефона: </b> @Model.PhoneNumber <br />
+<b>Роли: </b> @ViewBag.RoleNames
