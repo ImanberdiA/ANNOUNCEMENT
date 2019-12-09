@@ -1,0 +1,10 @@
+﻿@model IEnumerable<Announcements.Models.Announ>
+
+<div id="searchresults">
+    <ul>
+        @foreach (var item in Model)
+        {
+            <li>@item.AnnTitle</li>
+        }
+    </ul>
+</div>

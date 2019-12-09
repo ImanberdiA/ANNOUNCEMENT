@@ -13,7 +13,19 @@ namespace Announcements.Controllers
 
         public ActionResult Index()
         {
-            return View(db.Announs.ToList());
+            //return View(db.Announs.ToList());
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult AnnSearch(string name)
+        {
+            var allAnns = db.Announs.Where(a => a.Description.Contains(name)).ToList();
+            if (allAnns.Count <= 0)
+            {
+                return HttpNotFound();
+            }
+            return PartialView(allAnns);
         }
     }
 }

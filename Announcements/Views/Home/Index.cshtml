@@ -5,17 +5,11 @@
     ViewBag.Title = "Home Page";
 }
 
-<h4>Панель администратора</h4>
-
-<div class="container">
-    @Html.ActionLink("Пользователи", "Index", "UserAdmin", null, new { @class = "btn btn-info btn-lg btn-block" })
-    @Html.ActionLink("Роли", "Index", "RoleAdmin", null, new { @class = "btn btn-info btn-lg btn-block" })
+<div>
+    @using (Ajax.BeginForm("AnnSearch", new AjaxOptions { UpdateTargetId = "results" }))
+    {
+        <input type="text" name="name" />
+        <input type="submit" value="Поиск" />
+    }
+    <div id="results"></div>
 </div>
-
-@foreach (var ann in Model)
-{
-    <p>@ann.AnnTitle</p>
-    <p>Автор объявление: @ann.User.UserName</p>
-    <p>@ann.Salary</p>
-    <p>@ann.Description</p>
-}
